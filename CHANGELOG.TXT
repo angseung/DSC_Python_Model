@@ -1,0 +1,723 @@
+
+
+Change log for Display Stream Compression C model
+--------------------------------------------------
+
+V1.57 / released 12/12/2016 (final DSC 1.2a)
+--------------------------------------------
+
+- Removed bits_per_pixel check in PPS since it created an accidental restriction in 16bpc Native 4:2:2 mode
+
+- Added FULL_ICH_ERR_PRECISION to README.txt file
+
+- Defaulted FULL_ICH_ERR_PRECISION to 0 in test.cfg. This change was suggested solely for consistency with DSC 1.2 and does not represent guidance on which setting to use.
+
+
+
+V1.56 / released 11/1/2016 (proposed DSC 1.2a)
+----------------------------------------------
+
+- Renamed ALT_ENC_ICH_SELECTION to FULL_ICH_ERR_PRECISION. Added it to test.cfg.
+
+- Adjusted automatic slice height division algorithm to round up rather than down to avoid problems with odd heights.
+
+
+
+V1.55 / released 9/23/2016
+--------------------------
+
+- Added SECOND_LINE_BPG_OFFSET and SECOND_LINE_OFFSET_ADJ to 4:2:0 RC cfg files.
+
+- Fixed computation of default FIRST_LINE_BPG_OFFSET to use correct value of uncompressed_bpg
+
+- Fixed computation of default SECOND_LINE_BPG_OFFSET to use nominally 12 (was 512, which was a typo/invalid)
+
+
+
+V1.54 / released 9/7/2016
+-------------------------
+
+- Fixed bug in ICH decision
+
+
+
+V1.53 / released 9/2/2016
+-------------------------
+
+- Added missing SCR that fixes 10/12-bit UYVY file read
+
+
+
+V1.52 / released 9/1/2016
+-------------------------
+
+- ALT_ENC_ICH_SELECTION now only consists of using the extra precision for the errors.
+
+- Clamp max QP in bit save mode so it does not exceed the valid range of QP values
+
+- Reverted 4:2:0 PPS files to 1.48 versions.
+
+- Fixed rcb_bits calculation for decoder.
+
+- Changed auto slice height calculation to ensure even slice height in 4:2:0 mode.
+
+- Fixed "misleading indent" warnings in Linux.
+
+
+
+V1.51 / released 8/15/2016
+--------------------------
+
+- Reverted PPS files for 4:2:2 to 1.48 versions. Included 4:2:0 versions in orig_420_cfg subdirectory.
+
+- Added default value for SECOND_LINE_BPG_OFFSET. Capped FIRST_LINE_BPG_OFFSET default so first line bpg rate does not exceed uncompressed bpg rate.
+
+- Added warning message for RC_MAX_QP[14] that is too low and might cause overflow.
+
+- Fixed bug in DPX output colorspace when running with FUNCTION==2.
+
+- Removed unused parameter from GetQpAdjPredSize(). Fixed compiler warnings in Linux.
+
+- Modified ALT_ENC_ICH_SELECTION:
+  - Added ALT_ENC_ICH_SELECTION == 2 which is the same as ALT_ENC_ICH_SELECTION == 1 except using the 1.48 ICH decision logic.
+  - Dropped ICH search reordering
+
+
+
+V1.50 / released 6/28/2016
+--------------------------
+
+- Clarified error message for RGB mismatched with 4:2:2/4:2:0 mode
+
+- In 4:2:0 mode, applied second_line_ofs_adj to rcXformOffset (state variable) instead of initial_offset (PPS variable).
+
+- Fixed possible seg fault in certain modes when running with FUNCTION = 2
+
+- Adjusted ALT_ENC_ICH_SELECTION to be more conservative. (consider dropping aspects other than higher error precision?)
+
+- Modified max_qp for bit save mode in rate control so that it doesn't exceed the max QP for range 14
+
+
+
+V1.49 / released 5/25/2016
+--------------------------
+
+- Added ALT_ENC_ICH_SELECTION mode for reducing subtle artifacts in some cases in flat areas
+
+- Fixed nsl_bpg_offset bounds check
+
+- Added QP bounds check for DSC 1.1 YCbCr mode to avoid qLevel == cpntBitDepth
+
+- Fixed chunk_sizes[] malloc to use sizeof(int) rather than sizeof(int *)
+
+- For native 4:2:0, ICH no longer references previous line's samples in second line
+
+- Fixed condition for ICH reset on slice lines to use correct value for slice width
+
+- Fixed BP search in native 4:2:0 mode
+
+- Fixed computation of predActivity in rate control for native 4:2:0 mode
+
+- Fixed debug printout for decoding ICH indices
+
+- For native 4:2:0, use LEFT instead of MAP prediction for first and second lines for chroma
+
+- Ensure 16bpc YCoCg conversion does not exceed 16 bits
+
+- Fatal error if slice width or slice height is not an even multiple of 2
+
+- Revised config files for improved readability and 4:2:2/4:2:0 improved PPS values
+
+
+
+V1.48 / released 12/14/2015 (DSC 1.2 final)
+---------------------------
+
+- Removed a reserved byte from PPS so some long DSC 1.2 fields would be line up with 2-byte boundaries
+
+- Removed old, unused code from GetQpAdjPredSize()
+
+- Added multi-frame YUV read/write
+
+- Added independent range checks for DSC 1.1 and 1.2 modes for BITS_PER_COMPONENT and LINEBUF_DEPTH
+
+- Fix for planar YUV read (12 bit and higher)
+
+
+
+V1.47 / released 10/21/2015 (TEST MODEL FOR 4:2:2)
+---------------------------
+
+- Fixed ICH for native modes so the pixels from the previous line are correctly centered over the current group
+
+- Adjusted order of ICH indices in native 4:2:2 mode to keep ICH indices consistent for chroma regardless of mode
+
+
+
+V1.46 / released 10/16/2015 (TEST MODEL FOR 4:2:2)
+---------------------------
+
+- Changed native 4:2:2 mode to be similar to native 4:2:0 except with 4 components (even and odd luma, Cb, and Cr).
+
+- Fixed small memory leak in codec_main.c
+
+- Fixed PopulateOrigLine() to ensure out-of-slice pixels aren't accidentally used
+
+
+
+V1.45 / released 10/13/2015
+---------------------------
+
+- Removed flatness modification (except changes related to first line), ICH modifiedQp adjustment, and MPP modification.
+
+- Minor adjustments to RC to make bit saving mode slightly more conservative and allow the QP to drop to minQp-4 when groups are coded with no residuals.
+
+- Minor adjustment to ICH decision to use DSC 1.1 mode when next group is flat. Fix calculation for 4:2:2 ICH decision.
+
+- Changed rbsMin calculation to only use new calculation method for native 4:2:2 and native 4:2:0.
+
+- Add flatness check 3 for native 4:2:2 mode
+
+- Bug fix: somewhat_flat_qp_thresh and very_flat_qp not set correctly in codec_main.c
+
+
+
+V1.44 / released 9/22/2015
+--------------------------
+
+- Updated PPS guidance to match MIPI recommendations
+
+- Fixed PopulateOrigLine() padding at the end of lines to do pixel replication (affects flatness search at the end of lines).
+
+- Fixed FUNCTION = 2 (uninitialized values in config structure).
+
+- Added "print PPS" option (-P on command line)
+
+- Removed development options (BACKWARDS_COMPATIBLE, BIT_SAVE_ENABLE, MUXING_MODE, MUX_WORD_SIZE) and some new PPS values that were not changed (VERY_FLAT_QP, SOMEWHAT_FLAT_QP_DELTA, SOMEWHAT_FLAT_QP_THRESH).
+
+- Included DSC 1.1 pre-SCR config files for reference
+
+
+
+V1.43 / released 8/10/2015
+--------------------------
+
+- Added slice height autodetection to avoid modes that would overflow PPS bit depths
+
+- Removed options for modes that won't be used (high throughput options, next line flatness search, etc.)
+
+- Assume first group of non-first lines are all "very flat". Removed QP tweak for native 4:2:0 mode.
+
+- Improved flatness detection for NG* clips by adjusting the window
+
+- Added MMAP prediction for MPP lsb's and "bit save mode" to help improve quality on starnoise clips
+
+
+
+V1.42 / released 7/10/2015
+--------------------------
+
+- Assume first group of non-first lines are all "somewhat flat"
+
+- Removed FLATNESS_DET_THRESH_C and derived the value in code
+
+- Tweak to rate control funtion to ensure QP is low for beginning of 2nd slice line in native 4:2:0 mode
+
+- Changed names of 4:2:0 and 4:2:2 modes to be more descriptive (NATIVE_420, NATIVE_422, and SIMPLE_422)
+
+- Changed slice_width and pic_width to represent real slice & picture width in option 5 4:2:0 mode
+
+- Fixed seg fault when PPM_OUTPUT is enabled in modes other than RGB 4:4:4
+
+
+
+V1.41 / released 6/8/2015
+-------------------------
+
+- Minor fix for ICH in 4:2:0 option 5 mode
+
+- A few minor fixes related to MPP and flatness in 4:2:0 mode
+
+- Added YUV_FILE_FORMAT option for reading/writing 4:2:2 UYVY files in 4:2:2 mode
+
+
+
+V1.40 / released 6/2/2015
+-------------------------
+
+- Fixed previous line storage for all modes except option 5
+
+- Fixed test.cfg minor issues
+
+- Fixed compiler warnings
+
+
+
+V1.39 / released 6/1/2015
+-------------------------
+
+- Added options 4 & 5 high throughput 4:2:0 mode
+
+- Miscellaneous bug fixes
+
+
+
+V1.38 / released 5/16/2015
+--------------------------
+
+- Bug fixes for option 3 and option 1 modes
+
+- Fix for bits estimate function for 4:2:0 and 4:2:2 modes
+
+
+
+V1.37 / released 5/12/2015
+--------------------------
+
+- Removed most of the test code & category labels
+
+- Added 4:2:0 high throughput modes for test
+
+- Slight modification to flatness code
+
+- Updated DPX & image handling code for better compatibility (see app note)
+
+- Made the RC files consistent between 1.1 & 1.2. Minor changes to the 1.1 updated recommendations.
+
+- Slight change to underflow bug fix to minimize impact on 1.1 designs
+
+- Added MPP_UPPER option to do midpoint prediction using LSB's from above pixels rather than left pixels for non-first lines.
+
+
+
+V1.36 / released 3/6/2015
+-------------------------
+
+- Fixed a bug that prevented MPP on some units of 4:2:2 mode
+
+- Added an OPTIMIZED_RBS_MIN option (category 3) that more accurately computes the required rate buffer size
+
+- Restored some error checks, in particular the low bpp check
+
+- Fixed ENABLE_422 mode memory leak (i.e., the DSC 1.1 4:2:2 mode)
+
+- Fixed chroma format printout on log file
+
+- Fixed a bug that prevented vertical prediction in 4:4:4 YCbCr mode
+
+- Added VERY_FLAT_QP and SOMEWHAT_FLAT_QP_THRESH to category 3 PPS
+
+
+
+V1.35 / released 2/20/2015
+--------------------------
+
+- Fixed bug when using multiple slices per line in 4:2:2 and 4:2:0 modes
+
+- Added a DPX read option to bypass byte-swapping even if the magic number indicates the file is little-endian
+
+- Fixed the category 1 & 2 cfg files to use the correct field name DSC_VERSION_MINOR
+
+
+
+V1.34 / released 2/6/2015
+-------------------------
+
+- Fixed bugs in 4:2:0 and 4:4:4 modes
+
+- Fixed FLATNESS_NEXT behavior
+
+- Fixed RDO lookahead for ICH selection (set ICH_LOOKAHEAD = 2 to test this mode, although it's not recommended for inclusion as part of DSC 1.2)
+
+- Config file updates
+
+
+
+V1.33 / released 1/26/2015
+--------------------------
+
+- Fixed bug in block prediction (BP search now matches DSC V1.1)
+
+- Fixed 4:2:0 & 4:4:4 modes
+
+- Fixed high bpc modes
+
+- Config file updates
+
+
+
+V1.32 / released 1/19/2015 - Initial release test model DSC V1.2
+----------------------------------------------------------------
+
+- Fixed fractional bpp underflow bug
+
+- Scintillation issue improvements
+
+- Optimized 4:2:0 & 4:4:4 modes
+
+- 14 & 16 bpc mdoes
+
+
+
+V1.31 / released 7/15/2014 - POST-GMR DSC V1.1
+----------------------------------------------
+
+- Made the change for v1.30 since it was inadvertantly excluded in previous release
+
+- Modified test_10bpc*.cfg and test_12bpc*.cfg files to set LINEBUF_DEPTH to bpc+1 along with a reference to the spec.
+
+
+
+V1.30 / released 6/11/2014
+--------------------------
+
+- Changed an incorrect reference to PIXELS_PER_GROUP in VLDGroup() (was NUM_COMPONENTS).  Since both macros are defined to be 3, this is not a functional change.
+
+
+
+V1.29 / released 5/19/2014 - PROPOSED DSC V1.1
+----------------------------------------------
+
+- DSC overflow fix, which includes:
+   - Overflow avoid condition is replaced with: bufferFullness + throttle_offset > -172
+   - Action for overflow avoid is to use max QP for range 14 (rather than current max QP)
+   - Flatness check #2 is bypassed for 1-pixel groups at the ends of lines
+   - Flatness adjustment is bypassed when the QP is "overflow avoid QP" (ie., max QP for range 14)
+
+
+
+V1.28 / released 3/25/2014
+--------------------------
+(includes pps_identifier SCR and error checking SCR)
+
+- Added many parameter checks and enhanced error messages.
+
+- Initialized the dsc_codec structure in codec_main so that the pps_identifier field is always zero in the .DSC output files.
+
+
+
+V1.27 / released 3/7/2014 - INITIAL SPEC RELEASE
+------------------------------------------------
+
+- Removed references to "VESA Confidential" and "Broadcom Display Stream Compression".
+
+
+
+V1.26 / released 2/4/2014
+-------------------------
+
+- Changed scale_increment_interval to start when dsc_state->rcXformOffset > 0 after initial_xmit_delay and first line.  Increased bit depth of scale_increment_interval to 16 bits.  Note that some very large slice sizes (for example, a single 4Kx2K slice) may no longer be supported due to the 16-bit limitation (model will print an error message in these configurations).  Very large slices could still be supported by increasing the initial_xmit_delay.
+
+
+
+V1.25 / released 1/31/2014
+--------------------------
+
+- Fixed RemoveBitsEncoderBuffer() function so that it is consistent with the written spec (previous version was sometimes inconsistent when bpp < 8).
+
+- Changed rcXformOffset clamping in CalcFullnessOffset() to apply after the rcXformOffset drops below final_offset rather than simply after the first line. This fixes some undesirable behavior with certain combinations of parameters.
+
+
+
+V1.24 / released 1/20/2014
+--------------------------
+
+- Fixed potential underflow due to adjustment bits bug fix from 1.23
+
+
+
+V1.23 / released 1/10/2014
+--------------------------
+
+- Corrected programming of initial_scale_value when scale_decrement_interval is 1.
+
+- Fixed bug in adjustment bits calculation when 8 adjustment bits are needed.
+
+- Code cleanup and improved variable names (in many cases to match specification draft 5).
+
+
+
+V1.22 / released 12/19/2013
+---------------------------
+
+- Adjusted SamplePredict() function to match pixel lettering in specification.
+
+- Removed USE_SAD_FOR_CACHE #ifdef's and other unused code
+
+- Modified EstimateBitsForGroup() to correctly budget for omitted 1's at end of prefix
+
+- Added correct maximum value for modified_qp in ICH mode selection for 8 & 10 bpc
+
+- Changed ICH reset detection for multiple slices/line to be slice_width != pic_width instead of slice_width < pic_width.
+
+- Changed block prediction to use SampToLineBuf() for edge detection.  Fixed a bug in edge detection and set the condition to lastEdgeCount < 3 (instead of 9).
+
+- Reset bpg_frac_accum at the end of each line so that the number of adjustment bits is always the same in CBR mode.
+
+- Fixed a bug in ICH mode selection where midpoint error was not being selected properly.  Changed calculation of MAP/BP error to use clamped reconstructed value.
+
+- Changed vertical padding for final slice to a midpoint pixel value rather than pixel replication.
+
+- Fixed an issue that ICH could not be selected for partial group.  Fixed a bug that the index values for the nonexistant pixels in a partial group should be the same as the final index value that is used.
+
+
+V1.21 / released 11/7/2013
+--------------------------
+
+- Fixed SampToLineBuf() so that stored values cannot exceed (1<<linebuf_depth)-1.
+
+
+
+V1.20 / released 10/31/2013
+---------------------------
+
+- Added ICH reset at the beginning of every line if configuration is >1 slices per line.
+
+- Changed .DSC output files to include slice mutliplexing.  Added VBR slice multiplexing function as well.
+
+- Changed delays to be specified in pixel times rather than group times to avoid confusion when there are partial groups in either delay time.
+
+- Added function RemoveBitsEncoderBuffer() to handle buffer level tracker function (with slice multiplexing).  Added adjustment bits to handle padding to byte boundaries.  Added forceMpp conditions to ensure adjustment bits are available in encoder rate buffer.
+
+- Moved bit removal from buffer model to be before the LT RC to match the spec.
+
+- PPS updates: added chunk_size, added pps_identifier, changed linebuf_width to linebuf_depth, changed initial_enc_delay to initial_xmit_delay, changed initial_fullness_ofs to initial_offset, ensured that no fields span a 16-bit boundary.
+
+- Fixed bug in flatness QP values when bpc is 10 or 12.
+
+- Clean-up, including addressing comments from TGR.
+
+
+
+V1.19 / released 9/23/2013
+--------------------------
+
+- Fixed LT RC delay (wasn't working in previous version)
+
+- On 1st group of each line after 1st line, the left pixel from the line above is now simply the midpoint value (before it was a poorly defined blend of the midpoint value and the pixel above).
+
+- Fixed residual size for 12bpc mode (only affects some extreme MPP corner cases)
+
+- Deprecated:  BP_EDGE_COUNT (hardcoded), BP_EDGE_STRENGTH (hardcoded), PIXELS_PER_CLOCK_MODE (always =3).
+
+- More code cleanup
+
+- LICENSE.txt removed
+
+- Attempted fix reading DPX files with alpha (untested)
+
+
+
+V1.18 / released 9/18/2013
+--------------------------
+
+- Fix for block prediction - was using 12x1 SAD's, now using 9x1 SAD's to match document
+
+- Some code cleanup
+
+
+
+V1.17 / released 9/16/2013
+--------------------------
+
+- Fix for block prediction-- in previous versions, the -1 vector 9x1 SAD was not correctly computed.
+
+- Fixed rounding for fractional BPP when forcing MPP mode for stuffing.
+
+- Changed calculation for num_extra_mux_bits to be a little more accurate.
+
+- Fix for VBR mode to return post-mux bits used rather than RC bits used.
+
+- Fixed compile error on Mac OSX in fifo.c.
+
+- Updated RC files to use correct parameter BITS_PER_PIXEL instead of RC_BITS_PER_PIXEL.
+
+- Removed FLATNESS_DETECTION from config files.
+
+- Updated VS project file (replaced utl_brcm.c with utl.c).
+
+
+
+V1.16 / released 9/3/2013
+-------------------------
+
+- Deprecated old 4:2:2 mode and replaced it with simple 4:2:2->4:4:4 and 4:4:4->4:2:2 conversions.  These will be documented in an Annex of the spec, and application specifications can make these normative if desired.
+
+- Changed MMAP predictor to use blended values for all reference pixels in the line above, instead of the previous version that selectively used blended vs. non-blended depending on which pixel in the group.
+
+- BP partial SAD's for 3x1 blocks are now clamped to 9 bits
+
+- Added substream multiplexing (MUXING_MODE set to 1 in config file) to facilitate less expensive decoders at 3 pixels/clock.  MUX_WORD_SIZE defaults to 48, but needs to be set to 64 for 12bpc.
+
+- Added on/off VBR mode (VBR_ENABLE set to 1 in config file).  This mode disables all stuffing and clamps the bufferFullness so that it can't go below 0.
+
+- Moved floating-point calculations into codec_main() to clarify segmentation of what gets calculated on a host versus inside an encoder/decoder HW block.
+
+- Changed stuffing method - instead of using a 64-bit word, stuffing is now achieved by using MPP mode in the encoder.
+
+- Minor RC change to help new stuffing method:  if bufferFullness is < 64, the QP is not allowed to increment.
+
+- Adjusted RC offset calculations to take into account extra bits that might be generated by substream multiplexing at end of slice.  Amortized bits required to get from initial offset to final offset over the entire slice (rather than just after the initial delay).
+
+- Changed the fractional bits in the calculation of RC "offset" to 11 bits (was 16 before).  Added a CLAMP to the final_offset at the end of the slice to avoid losing buffer range at the end of long slices where the precision loss is significant.
+
+- Updated RC files so that buffer thresholds always end with 6 0-LSB's to allow simpler RC implementation.
+
+- Changed flatness codes to only occur on luma units.  The flag occurs 2 groups before the affected supergroup, and the location and type occur 1 group before the affected supergroup.
+
+- Fixed bug in flatness QP values at higher BPC.
+
+- Changed IC$ selection for 10 and 12 bpc to use truncated errors in the decision process for lower cost & better performance.
+
+- Fixed issue with bits estimate in the encoder IC$ selection where the returned value was incorrect for the last 5 pixels of a line.
+
+- Eliminated the bit-reduction for chroma at the CSC for 12bpc source to save an extra quantization table, improve quality, and get rid of the special case.  This means Co and Cg will be 13 bits for 12-bit RGB input.
+
+- Added PPM support.  Input files that are PPM will cause the model to output in PPM format.
+
+- Output files now have the extensions .ref.dpx and .out.dpx instead of .dpx.ref.dpx and .dpx.out.dpx.  Bitstream files have the same base name as the input files and a .DSC extension (BITSTREAM config file option is removed).  .DSC files can be used in list files if FUNCTION is set to decode.  
+
+- Added PPS (may be subject to change) and .DSC-standardized file format.
+
+- Removed HYBRID_MODE.  Changed BLOCK_PRED_RANGE to BLOCK_PRED_ENABLE, and block prediction is hardwired to 8 positions.  Removed CACHE_INDEX_BITS (always set to 5).  Replaced PRED_LOOP_THROUGHPUT, PRED_BLK_SIZE, BP_SIZE, and RC_LT_DELAY with PIXELS_PER_CLOCK_MODE, which can be set to either 1 or 3 (default).  Removed BP_EDGE_STRENGTH parameter (always set to 32).  Removed FLATNESS_DETECTION (obviously needed).  Removed RC_OFLOW_AVOID parameter (always set to highest range).  Changed RC_BITS_PER_PIXEL to BITS_PER_PIXEL.  Added LOG_FILENAME to specify name of log file.  Changed USE444 option to ENABLE_422.
+
+- Major code cleanup & removal of unused features.  Removed references to BDC.
+
+
+V1.15 / released 7/22/2013
+--------------------------
+
+- Added PRED_LOOP_THROUGHPUT (either 1 or 3 pixels/clock).  If set to 3:  adjusts the prediction to not use reconstructed pixels within the same group; disallows -2 vector for block prediction; and updates cache state once / group instead of once / pixel.
+
+- Brought PRED_BLK_SIZE and BP_SIZE out to config file.  Defaults to 1 pixel/clock mode.  We recommend to set both values to 3 to set up the block prediction for 3 pixels/clock.
+
+- Added RC_LT_DELAY (either 1 or 2 groups).  Normally the RC is allowed one group time to finish.  Setting this value to 2 adds an extra group-time of latency to the long-term RC computation, which would ease circuit timing for 3 pixel/clock mode.
+
+- To run in 1 pixel/clock mode, the above 3 parameters can be commented out in the configuration file.
+
+
+
+V1.14 / released 7/8/2013
+-------------------------
+
+- Adjusted encoder flatness decision to look at two candidate windows for flatness.  The first window is the 3 current pixels + the pixel to the immediate left.  The second window is the 3 current pixels + the 3 pixels to the immediate right.  If either is flat, then flatness is considered to be true.
+
+- Defaulted HYBRID_MODE to off.
+
+- Fixed the 10 & 12bpc RC files so they at least work (though not yet optimized)
+
+
+
+V1.13 / released 7/7/2013
+-------------------------
+
+- Added MapQpToQlevel() function to ensure that the mapping of QP to quantization level is consistent across the code.  Changed quantization table so that luma is quantized less than chroma.
+
+- Fixed bug in encoder IC$ decision where maxError and maxMidError were being calculated incorrectly.  Adjusted encoder IC$ decision slightly to weight luma errors more than chroma errors.
+
+- Adjusted encoder flatness window to look at 3 current pixels + pixel to the immediate left (previously, it included the pixel to the immediate right as well).  Pixels that are at the right edge of the slice are now padded for the purpose of flatness detection.
+
+- Replaced hard-coded "3" with CACHE_PIXELS_ABOVE in ShouldIUseCache().
+
+
+
+V1.12 / released 6/24/2013
+--------------------------
+
+- Added HYBRID_MODE option for 4:4:4 video (default on).  The HYBRID_MODE adaptively switches between the LeGall (5,3) wavelet and DPCM/IC$ modes.  The switching could (and should) be optimized further, but currently wavelet is used if (a) block prediction would not be used, (b) there aren't a lot of pixels that are super-close to IC$ values, and (c) the HF coefficients are likely to be quantized away.  The LF coefficients are predicted using MAP only (ie., no BP).  The transform decision is made on a "supergroup" basis, and a supergroup is currently defined as a 6x1 block.  The transform decision is currently signaled using a 1-bit flag that is sent as a header for the previous supergroup.  The HF coefficients are always predicted from 0.  The HF coefficients are quantized using a quantizer value that is 2 greater than the LF quantizer.  The HF coefficient predicted size is 1, and we introduce a "skip" bit that allows 3 zero-value HF coefficients to be coded using a single bit.
+
+- IC$ allows the use of 7 pixels from the line above on non-first-lines instead of 3.
+
+- Encoder IC$ decision logic changed slightly.
+
+- Small RC fix to fix BPG target when group size != 3
+
+- Small fix for QP-adaptive filter from v1.11 so pixels are replicated at left edge instead of using gray value.
+
+
+
+V1.11 / released 6/7/2013
+-------------------------
+
+- Increased recommended number of cache bits to 5 & cache positions to 32.
+
+- Removed "modified MAP".  Added a QP-adaptive filter for the pixels on the line above that are used in MAP.
+
+- Changed encoder cache decision to consider pixels where errors are within QuantDivisor[qp+1]/2 (was QuantDivisor[qp]/2).
+
+- Added secondary flatness indication if QP >= 7 to distinguish between "somewhat flat" and "very flat" areas.  Increased max QP to send flatness to 12.
+
+- Minor RC adjustments.  The incr_amount is now (codedGroupSize - targetBpg) >> 1.  QP is allowed to drop to min_QP/2 if no deltas are coded.  When the current group is over budget, we set the QP to min_QP before applying the correction.  Reduced MAX_QP of 2nd last range in RC file.
+
+- If the cache was selected for the previous group, cache mode is abandoned if the P-mode error is less than or equal to the cache mode error.  Error is defined as the max component-wise error for each unit summed over the three components.
+
+- Minor bug fixes (DPX handling of all-luma files, RC model range was previously hard-coded, some initial state unitialized).
+
+- Fixed warnings in Linux
+
+
+V1.10 / released 5/20/2013
+--------------------------
+
+- Brought out the flatness parameters (FLATNESS_MIN_QP, FLATNESS_MAX_QP, and FLATNESS_DETECT_THRESH) to configuration file.  Reduced default FLATNESS_MIN_QP to 3 (from 4).  QP adjustment now allowed to go to zero.  This addresses the purple screen issues on sc_programming.
+
+- Fixed Linux build issues.  Added Mac OS compatibility (Thanks Bob!).
+
+- Fixed warnings for some static code analysis tools.
+
+- Added DPX option to write files in the opposite endianness as the host machine (DPX_WRITE_BSWAP).
+
+
+
+V1.09 / released 5/10/2013
+--------------------------
+
+- Toshiba reported an issue with slice width = 256.  This was found to be due to an assumption in the rate control that the slice width is greater than the initial delay.  We removed this assumption from the code.
+
+- Dale reported an issue with Android screens, and in particular flat icons on a busy background.  The rate control didn't have a way to quickly ramp down QP if an area was flat.  We added an explicit indication in the bitstream to signal when a flat area starts with group accuracy.  This can be enabled or disabled through a new config file option called FLATNESS_DETECTION.
+
+- We added consideration for block prediction in the encoder's bits estimator that it uses for its IC$ decision.  This improves some artifacts on ClearType.
+
+- We reduced the block prediction range in the config file by 1 to reduce cost (ie., so only 16 positions are possible).
+
+- We updated the RC files to help on some natural images.  The max QP was also reduced since MPP can bound the bits more tightly than modulo mapping (which was removed in 1.06).  The OFLOW_AVOID level was set to a more appropriate value.
+
+- We fixed a bug in the way bits were accounted for that could result in the encoder and decoder getting out of sync.
+
+- Changed the meaning of the LINE_BUFFER_BPC slightly.  In the old EXE, a value of 8 meant that luma was converted to 8 bits and chroma was converted to 9 bits.  To facilitate testing different configurations, a value of 8 now means that luma and chroma both get 8 bits, and a value of 9 now means 8 bits for luma and 9 bits for chroma, etc.
+
+
+
+V1.07a / released 4/15/2013
+---------------------------
+(v1.07 was an out-of-sync build, please use v1.07a)
+
+-  Jim reported an issue with large images where the memory allocation would fail.  Fixed by reducing the memory allocated for each picture buffer. Sizes beyond the mandated 8Kx4K requirement may still fail.
+
+-  Per Jim's request, added an optional "OUT_DIR" config file option to specify what directory the output files should be placed in.
+
+
+
+V1.06 / released 4/9/2013
+--------------------------
+
+-  Performance speedups:
+  a)  Compiled in "Release" mode
+  b)  Allocated YCoCg conversion buffers once per frame rather than once per slice
+
+-  Algorithm simplifications:
+  a)  Allow an entire group time at the decoder to finish RC model calculations.
+  b)  Removed sens_flag QP adjustment.
+  c)  Replaced modulo mapping with midpoint prediction (MPP), described below.
+  d)  Implemented IC$ as shift register
+  e)  Removed restriction that QP can only change by 2 from group to group
+  f)  Reduced IC$ escape code size since QP cannot change within group
+  g)  Use LEFT predcitor instead of MAP predictor for BP normalization
+
+-  Algorithm improvements:
+  a)  Modified VLC so that prefix '1' bit is not sent when it can be inferred (ie., when the prefix length is max possible size).
+  b)  Adjust VLC predicted size up or down when the component QP changes down or up.
+
+-  Added midpoint prediction to guarantee that residuals will never exceed BPC - QP in size.  If residual costs BPC-QP bits, the predictor will be set to approximately the midpoint of the range of possible values.  The LSB's of the midpoint come from the reconstructed pixel to the left.
+
+-  Minor bug fixes in some of the encoder decisions

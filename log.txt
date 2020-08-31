@@ -1,0 +1,48 @@
+Filename: IMG_1080_1920.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.91  Max{|error|} =   17   (R =  15, G =  12, B =  17)   
+Filename: IMG_1080_2160.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.44  Max{|error|} =   18   (R =  17, G =  15, B =  18)   
+Filename: IMG_1080_2220.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.11  Max{|error|} =   17   (R =  17, G =  14, B =  16)   
+Filename: IMG_1080_2244.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.88  Max{|error|} =   17   (R =  15, G =  13, B =  17)   
+Filename: IMG_1080_2280.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.39  Max{|error|} =   16   (R =  16, G =  12, B =  16)   
+Filename: IMG_1080_2340.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.17  Max{|error|} =   17   (R =  17, G =  14, B =  16)   
+Filename: IMG_1080_2400.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.47  Max{|error|} =   18   (R =  16, G =  14, B =  18)   
+Filename: IMG_1080_2520.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  45.34  Max{|error|} =   18   (R =  18, G =  14, B =  15)   
+Filename: IMG_720_1280.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  55.27  Max{|error|} =    9   (R =   8, G =   6, B =   9)   
+Filename: IMG_720_1440.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  55.79  Max{|error|} =    8   (R =   8, G =   7, B =   7)   
+Filename: IMG_720_1480.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  55.83  Max{|error|} =    9   (R =   9, G =   6, B =   9)   
+Filename: IMG_720_1496.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  55.67  Max{|error|} =    8   (R =   8, G =   6, B =   8)   
+Filename: IMG_720_1520.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  55.62  Max{|error|} =    9   (R =   9, G =   7, B =   9)   
+Filename: IMG_720_1560.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  56.11  Max{|error|} =    8   (R =   8, G =   6, B =   8)   
+Filename: IMG_720_1600.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  56.15  Max{|error|} =    9   (R =   9, G =   6, B =   9)   
+Filename: IMG_720_1680.ppm
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 1920x108 slices, block_pred_enable=1
+PSNR over RGB channels =  56.27  Max{|error|} =    9   (R =   9, G =   7, B =   8)   
