@@ -29,9 +29,9 @@ hss[:, -2 :] = 0x99
 
 head_0 = np.zeros((slice_height, 4), dtype = np.uint8)
 head_0[:, 0] = 0x0b
-head_0[:, 1] = 0x01
-head_0[:, 2] = 0xe0
-head_0[:, 3] = 0x99
+head_0[:, 1] = 0xe0
+head_0[:, 2] = 0x01
+head_0[:, 3] = 0x1c
 
 slice_0 = dsc_data_from_file[0 : slice_size].reshape([slice_height, slice_width])
 
