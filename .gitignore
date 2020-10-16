@@ -192,3 +192,10 @@ cython_debug/
 !/red_img.bmp
 !/w2_cov.yuv
 !/RGBW_image.bmp
+!/w2_cov.out.ppm
+!/w2_cov.ref.ppm
+!/w2_cov.yuv
+!/HEX_422/
+!/HEX_444/
+!/HEX_420/
+!/input_old/
