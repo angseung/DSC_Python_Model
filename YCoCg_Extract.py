@@ -30,9 +30,9 @@ for idx, fname in enumerate(input_file_list):
     np.savetxt("%s_B.txt" %fname[:-4], im_rgb[:, :, 2], fmt = '%x', delimiter = '\n')
 
     # orig_pixel = orig_pixel.transpose([1, 0, 2])
-    np.savetxt("%s_Y.txt" %fname[:-4], im_yuv[:, :, 0], fmt = '%x', delimiter = '\n')
-    np.savetxt("%s_Cb.txt" %fname[:-4], im_yuv[:, :, 1], fmt = '%x', delimiter = '\n')
-    np.savetxt("%s_Cr.txt" %fname[:-4], im_yuv[:, :, 2], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_Y.txt" %fname[:-4], im_yuv[:, :, 0], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_Cb.txt" %fname[:-4], im_yuv[:, :, 1], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_Cr.txt" %fname[:-4], im_yuv[:, :, 2], fmt = '%x', delimiter = '\n')
 
     # for i in range(im_ycbcr.height):
     #     for j in range(im_ycbcr.width):

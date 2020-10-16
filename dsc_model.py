@@ -5,9 +5,9 @@ from init_pps import *
 from dsc_utils import parse_pps
 
 sx_num = 1
-sy_num = 10
+sy_num = 1
 ################
-DSC_MODE = 0
+DSC_MODE = 1
 slice_width = int(1920 / sx_num)
 slice_height = int(1080 / sy_num)
 Bits_per_component = 8
