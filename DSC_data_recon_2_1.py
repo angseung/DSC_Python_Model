@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
-                         num_h_slice = 4, num_v_slice = 1,
+                         num_h_slice = 2, num_v_slice = 1,
                          byte_offset = 132,
                          LANE_DISTRIBUTE_OPT = False):
 
@@ -11,7 +11,7 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
     slice_size = slice_width * slice_height
 
     ## Pixel data comes from 132th bytes in original dsc file...
-    dsc_data_from_file = np.fromfile(file_name, np.uint8, -1, '', 0) ## in case of header removed file...
+    dsc_data_from_file = np.fromfile(file_name, np.uint8, -1, '', byte_offset) ## in case of header removed file...
     # dsc_data_from_file = np.fromfile(file_name, np.uint8, -1, '', 132)
     dsc_data_orig = dsc_data_from_file.reshape((num_h_slice * slice_height, slice_width))
 
@@ -42,10 +42,6 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
 
     slice_1 = dsc_data_from_file[slice_size : slice_size * 2].reshape([slice_height, slice_width])
 
-    slice_2 = dsc_data_from_file[slice_size * 2 : slice_size * 3].reshape([slice_height, slice_width])
-
-    slice_3 = dsc_data_from_file[slice_size * 3 : slice_size * 4].reshape([slice_height, slice_width])
-
     head_2 = np.zeros((slice_height, 6), dtype = np.uint8)
     head_2[:, 0] = 0x99
     head_2[:, 1] = 0x99
@@ -62,10 +58,6 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
         slice_0,
         head_1, # 2 Byte CRC + Compressed Pixel packet header
         slice_1,
-        head_1, # 2 Byte CRC + Compressed Pixel packet header
-        slice_2,
-        head_1, # 2 Byte CRC + Compressed Pixel packet header
-        slice_3,
         head_2, # 2 Byte CRC + Blanking packet header
         blank # Blanking packet payload
     ])
@@ -97,10 +89,10 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
         DF.to_csv("DSC_%s.csv" %file_name[: -4])
 
 # file_name = "RGBW_image_4_1.dsc"
-file_name = "RED_image_4_1.dsc"
+file_name = "RED_image_2_1.dsc"
 
 reconstruct_dsc_data(file_name = file_name,
                      pic_width = 1920, pic_height = 1080,
-                     num_h_slice = 4, num_v_slice = 1,
-                     byte_offset = 0,
+                     num_h_slice = 2, num_v_slice = 1,
+                     byte_offset = 132,
                      LANE_DISTRIBUTE_OPT = True)

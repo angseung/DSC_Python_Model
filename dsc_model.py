@@ -4,7 +4,7 @@ from dsc_codec import DSC_CODEC
 from init_pps import *
 from dsc_utils import parse_pps
 
-sx_num = 1
+sx_num = 2
 sy_num = 1
 ################
 DSC_MODE = 1
