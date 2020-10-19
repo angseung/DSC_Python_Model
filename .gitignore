@@ -160,3 +160,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+DSC_RED_image_4_1.csv
+DSC_RGBW_image_4_1.csv
+RED_image_4_1.dsc
+RGBW_image_4_1.dsc
