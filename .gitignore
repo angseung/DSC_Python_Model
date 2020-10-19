@@ -160,37 +160,3 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-!/RGBW_image_4_1.dsc
-!/red_img_B.txt
-!/w2_cov.out.ppm
-!/red_img_G.txt
-!/red_img.out.ppm
-!/RED_image.bmp
-!/RGBW_image.out.ppm
-!/RGBW_image.ppm
-!/RGBW_image.dsc
-!/RGBW_image_4_1.csv
-!/RED_image_4_1.dsc
-!/264_200_01.ref.ppm
-!/RED_image.dsc
-!/red_img - 복사본.dsc
-!/RED_image_B.txt
-!/RGBW_image_G.txt
-!/RED_image_G.txt
-!/RED_image_R.txt
-red_img.ppm
-red_img.ref.ppm
-w2_cov.ref.ppm
-w1.dsc
-red_img_R.txt
-RGBW_image.ref.ppm
-RED_image.ref.ppm
-RGBW_image_B.txt
-RED_image.ppm
-RED_image.out.ppm
-RGBW_image_R.txt
-264_200_02.ref.ppm
-red_img.bmp
-264_200_03.ref.ppm
-w2_cov.yuv
-RGBW_image.bmp
