@@ -1,3 +1,6 @@
+"""
+THIS FUNCTION IS MADE FOR RECONSTRUCT VESA DSC v1.1 BITSTREAM TO COMPARE WITH DG-Q820 DSC OUTPUT DATA
+"""
 import numpy as np
 import pandas as pd
 
