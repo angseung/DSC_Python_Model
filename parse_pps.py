@@ -4,7 +4,7 @@ import numpy as np
 file_path = os.getcwd()
 PRINT_PPS_OPT = 1
 
-with open("sample_01.dsc", "rb") as f:
+with open("RED_image_1_1.dsc", "rb") as f:
     if(f.read(4) != b'DSCF'): # Magic Number
         exit(-1)
 
