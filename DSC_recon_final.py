@@ -55,6 +55,10 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
 
     slice_1 = np.vstack((slice_00[index_even, :], slice_01[index_even, :]))
 
+    debug_slice = np.hstack([
+        slice_0,
+        slice_1
+    ])
     head_2 = np.zeros((slice_height, 6), dtype = np.uint8)
     head_2[:, 0] = 0x99
     head_2[:, 1] = 0x99
