@@ -1,60 +1,60 @@
 Filename: HT_Image_01_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  64.14  Max{|error|} =    5   (R =   4, G =   3, B =   5)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  63.84  Max{|error|} =    7   (R =   4, G =   3, B =   7)   
 Filename: HT_Image_02_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  76.27  Max{|error|} =    2   (R =   2, G =   2, B =   2)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  74.48  Max{|error|} =    2   (R =   2, G =   2, B =   2)   
 Filename: HT_Image_03_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  62.46  Max{|error|} =    4   (R =   4, G =   3, B =   4)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  60.85  Max{|error|} =    5   (R =   5, G =   3, B =   5)   
 Filename: HT_Image_04_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  47.30  Max{|error|} =   13   (R =   9, G =   8, B =  13)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  47.13  Max{|error|} =   13   (R =   9, G =   8, B =  13)   
 Filename: HT_Image_05_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  56.05  Max{|error|} =    5   (R =   5, G =   4, B =   5)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  55.59  Max{|error|} =    6   (R =   6, G =   4, B =   5)   
 Filename: HT_Image_06_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  48.12  Max{|error|} =    9   (R =   8, G =   7, B =   9)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  47.85  Max{|error|} =   12   (R =   9, G =   7, B =  12)   
 Filename: HT_Image_07_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  50.56  Max{|error|} =    9   (R =   9, G =   9, B =   9)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  50.41  Max{|error|} =    9   (R =   9, G =   8, B =   9)   
 Filename: HT_Image_08_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  45.67  Max{|error|} =    9   (R =   9, G =   8, B =   9)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  45.50  Max{|error|} =   10   (R =   9, G =   7, B =  10)   
 Filename: HT_Image_09_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  47.04  Max{|error|} =   12   (R =   9, G =   8, B =  12)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  46.68  Max{|error|} =   11   (R =  10, G =  10, B =  11)   
 Filename: HT_Image_10_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  66.61  Max{|error|} =    4   (R =   4, G =   3, B =   4)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  66.10  Max{|error|} =    4   (R =   4, G =   3, B =   4)   
 Filename: HT_Image_11_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  55.10  Max{|error|} =    5   (R =   4, G =   4, B =   5)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  54.82  Max{|error|} =    5   (R =   5, G =   4, B =   5)   
 Filename: HT_Image_12_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
 PSNR over RGB channels =  80.09  Max{|error|} =    2   (R =   2, G =   2, B =   1)   
 Filename: HT_Image_13_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  52.57  Max{|error|} =    7   (R =   6, G =   5, B =   7)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  52.33  Max{|error|} =    7   (R =   6, G =   5, B =   7)   
 Filename: HT_Image_14_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  57.17  Max{|error|} =    7   (R =   7, G =   5, B =   5)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  56.26  Max{|error|} =    7   (R =   7, G =   5, B =   5)   
 Filename: HT_Image_15_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  57.26  Max{|error|} =    5   (R =   5, G =   3, B =   5)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  56.73  Max{|error|} =    4   (R =   4, G =   3, B =   4)   
 Filename: HT_Image_16_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  47.82  Max{|error|} =   15   (R =  15, G =  13, B =  10)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  47.66  Max{|error|} =   15   (R =  12, G =  15, B =  15)   
 Filename: HT_Image_17_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  49.97  Max{|error|} =    9   (R =   9, G =   7, B =   9)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  49.68  Max{|error|} =   15   (R =  15, G =   8, B =  10)   
 Filename: HT_Image_18_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  56.14  Max{|error|} =    6   (R =   5, G =   4, B =   6)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  55.56  Max{|error|} =    5   (R =   5, G =   4, B =   5)   
 Filename: HT_Image_19_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  37.80  Max{|error|} =   19   (R =  19, G =  16, B =  19)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  37.72  Max{|error|} =   22   (R =  22, G =  18, B =  19)   
 Filename: HT_Image_20_crop.ppm
-8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x200 slices, block_pred_enable=1
-PSNR over RGB channels =  51.92  Max{|error|} =    8   (R =   8, G =   7, B =   7)   
+8.00 bits/pixel, 8 bits/component, RGB, 4:4:4, 264x100 slices, block_pred_enable=1
+PSNR over RGB channels =  51.39  Max{|error|} =    8   (R =   7, G =   8, B =   8)   

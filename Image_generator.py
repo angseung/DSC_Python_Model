@@ -26,14 +26,16 @@ for idx, fname in enumerate(input_file_list):
         raise ValueError
 
     # image = im.load()
-    crop_image = im.crop((0, 0, crop_width, crop_height))
-    crop_image.save("%s_crop.png" % fname[:-4])
+    crop_image = im
+    # crop_image = im.crop((0, 0, crop_width, crop_height))
+    crop_image = crop_image.convert("RGB")
+    crop_image.save("%s_crop.jpg" % fname[:-4])
     print("PROCESSING %s FILE..." % fname)
 
     crop_image = np.array(crop_image)
-    np.savetxt("%s_R.txt" %fname[:-4], crop_image[:, :, 0], fmt = '%x', delimiter = '\n')
-    np.savetxt("%s_G.txt" %fname[:-4], crop_image[:, :, 1], fmt = '%x', delimiter = '\n')
-    np.savetxt("%s_B.txt" %fname[:-4], crop_image[:, :, 2], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_R.txt" %fname[:-4], crop_image[:, :, 0], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_G.txt" %fname[:-4], crop_image[:, :, 1], fmt = '%x', delimiter = '\n')
+    # np.savetxt("%s_B.txt" %fname[:-4], crop_image[:, :, 2], fmt = '%x', delimiter = '\n')
 
     # orig_pixel = orig_pixel.transpose([1, 0, 2])
     # np.savetxt("%s_Y.txt" %fname[:-4], im_yuv[:, :, 0], fmt = '%x', delimiter = '\n')
