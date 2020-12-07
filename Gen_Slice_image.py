@@ -6,15 +6,15 @@ from PIL import Image
 image = np.zeros([1080, 1920, 3], dtype = np.uint8);
 
 ## for RGBW image...
-# image[:, 0 : 480, 0] = 255
-# image[:, 480 : 960, 1] = 255
-# image[:, 960 : 1440, 2] = 255
-# image[:, 1440 :, :] = 255
+image[:, 0 : 480, :] = 0x10
+image[:, 480 : 960, :] = 0x20
+image[:, 960 : 1440, :] = 0x30
+image[:, 1440 :, :] = 0x40
 
 ## for Red only image...
-image[:, :, 0] = 255
-image[:, :, 1] = 0
-image[:, :, 2] = 0
+# image[:, :, 0] = 255
+# image[:, :, 1] = 0
+# image[:, :, 2] = 0
 
 # cv2.imshow("image.jpg", image)
 # plt.imshow(image)
