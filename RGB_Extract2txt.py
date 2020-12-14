@@ -1,3 +1,6 @@
+"""
+This script is implemented to generate RGB pixel value in DEC for debug DSC encoder IP...
+"""
 from PIL import Image
 import os
 import numpy as np

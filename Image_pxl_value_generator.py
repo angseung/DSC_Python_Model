@@ -1,3 +1,7 @@
+"""
+This script is implemented to generate pixel value in DEC for debug DSC encoder IP...
+Image can be cropped to make specific image size
+"""
 from PIL import Image
 import os
 import numpy as np

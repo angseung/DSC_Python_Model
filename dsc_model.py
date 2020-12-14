@@ -1,3 +1,7 @@
+"""
+Main script to execute DSC.exe application
+"""
+
 import os
 from PIL import Image
 from dsc_codec import DSC_CODEC

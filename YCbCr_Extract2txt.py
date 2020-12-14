@@ -1,3 +1,8 @@
+"""
+This script is implemented to generate YUV pixel value in DEC for debug DSC encoder IP...
+Input image must be YUV422 or YUV420 format with a *.yuv file extension.
+User MUST SPECIFY image size since you file format is a RAW data format without any picture infomations.
+"""
 from PIL import Image
 import os
 import numpy as np
