@@ -1,16 +1,30 @@
 """
-THIS FUNCTION IS MADE FOR RECONSTRUCT VESA DSC v1.1 BITSTREAM TO COMPARE WITH DG-Q820 DSC OUTPUT DATA
-THIS FUNCTION CAN BE APPLYED TO 2-HORIZONTAL and NO VERTICAL SLICED SLICED CASE
-THIS 2-HORIZONTAL SLICED DATA WAS VALIDATED SUCCESSFULLY... (2020.10.19)
+THIS FUNCTION IS MADE FOR RECONSTRUCT VESA DSC v1.1 BITSTREAM TO COMPARE WITH DG-Q820 DSC ENCODED  OUTPUT DATA
+THIS FUNCTION CAN BE APPLYED TO NO SLICED CASE
+THIS NO SLICED ENCODED DATA WAS VALIDATED SUCCESSFULLY... (2020.10.19)
 """
 
 import numpy as np
 import pandas as pd
 
 def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
-                         num_h_slice = 2, num_v_slice = 1,
+                         num_h_slice = 1, num_v_slice = 1,
                          byte_offset = 132,
                          LANE_DISTRIBUTE_OPT = False):
+    """
+    This function reconstruct DSC output data to compare with Q820 DSC data output.
+    DSI packet header, ECC, CRC16 and blank null packet payload are appended to DSC coded data.
+    CRC16 2 byte is set as 0x99, which is not identical with Q820 output, but ALL other bytes are 100% identical.
+
+    :param file_name: DSC file name
+    :param pic_width: picture width of original picture
+    :param pic_height: picture height of original picture
+    :param num_h_slice: 2, horizontal half-sliced case
+    :param num_v_slice: 1, NO vertical sliced case
+    :param byte_offset: 132, 4Byte magic number and 128Byte PPS data
+    :param LANE_DISTRIBUTE_OPT: if True, ALL bytes will be distributed 4 lanes alignment
+    :return: None, but CSV file contains DECIMAL DSC_DSI packet data will be generated
+    """
 
     slice_width = pic_width // num_h_slice
     slice_height = pic_height // num_v_slice
@@ -21,12 +35,7 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
     # dsc_data_from_file = np.fromfile(file_name, np.uint8, -1, '', 132)
     dsc_data_orig = dsc_data_from_file.reshape((num_h_slice * slice_height, slice_width))
 
-    index = np.array(range(slice_height))
-    index_odd = index[::2]
-    index_even = index[1::2]
-
-    slice_00 = dsc_data_from_file[0 : slice_size].reshape([slice_height, slice_width])
-    slice_01 = dsc_data_from_file[slice_size : slice_size * 2].reshape([slice_height, slice_width])
+    slice_0 = dsc_data_from_file[0 : slice_size].reshape([slice_height, slice_width])
 
     hss = np.zeros((slice_height, 576), dtype = np.uint8)
     hss[:, 0] = 0x21
@@ -39,35 +48,19 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
 
     head_0 = np.zeros((slice_height, 4), dtype = np.uint8)
     head_0[:, 0] = 0x0b
-    head_0[:, 1] = 0xc0
-    head_0[:, 2] = 0x03
-    head_0[:, 3] = 0x07
-
-    slice_0 = np.vstack((slice_00[index_odd, :], slice_01[index_odd, :]))
+    head_0[:, 1] = 0x80
+    head_0[:, 2] = 0x07
+    head_0[:, 3] = 0x19
 
     head_1 = np.zeros((slice_height, 6), dtype = np.uint8)
     head_1[:, 0] = 0x99
     head_1[:, 1] = 0x99
-    head_1[:, 2] = 0x0b
-    head_1[:, 3] = 0xc0
-    head_1[:, 4] = 0x03
-    head_1[:, 5] = 0x07
+    head_1[:, 2] = 0x19
+    head_1[:, 3] = 0xfc
+    head_1[:, 4] = 0x00
+    head_1[:, 5] = 0x15
 
-    slice_1 = np.vstack((slice_00[index_even, :], slice_01[index_even, :]))
-
-    debug_slice = np.hstack([
-        slice_0,
-        slice_1
-    ])
-    head_2 = np.zeros((slice_height, 6), dtype = np.uint8)
-    head_2[:, 0] = 0x99
-    head_2[:, 1] = 0x99
-    head_2[:, 2] = 0x19
-    head_2[:, 3] = 0xf6
-    head_2[:, 4] = 0x00
-    head_2[:, 5] = 0x2c
-
-    blank = np.zeros((slice_height, 248), dtype = np.uint8)
+    blank = np.zeros((slice_height, 254), dtype = np.uint8)
     blank[:, -2 :] = 0x99
 
     dsc_recon = np.hstack([
@@ -75,8 +68,6 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
         head_0, # Compressed Pixel packet header
         slice_0,
         head_1, # 2 Byte CRC + Compressed Pixel packet header
-        slice_1,
-        head_2, # 2 Byte CRC + Blanking packet header
         blank # Blanking packet payload
     ])
 
@@ -106,11 +97,10 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
         DF = pd.DataFrame(dsc_data_lane)
         DF.to_csv("DSC_%s.csv" %file_name[: -4])
 
-# file_name = "RGBW_image_4_1.dsc"
-file_name = "NEW_image_half.dsc"
+file_name = "NEW_image_full.dsc"
 
 reconstruct_dsc_data(file_name = file_name,
                      pic_width = 1920, pic_height = 1080,
-                     num_h_slice = 2, num_v_slice = 1,
+                     num_h_slice = 1, num_v_slice = 1,
                      byte_offset = 132,
                      LANE_DISTRIBUTE_OPT = True)

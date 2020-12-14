@@ -1,6 +1,7 @@
 """
 THIS FUNCTION IS MADE FOR RECONSTRUCT VESA DSC v1.1 BITSTREAM TO COMPARE WITH SAMSUNG EXYNOS 8895 DSC OUTPUT DATA
 THIS FUNCTION CAN BE APPLYED TO NO HORIZONTAL and NO VERTICAL SLICED SLICED CASE
+THIS NO SLICED ENCODED DATA WAS VALIDATED SUCCESSFULLY... (2020.10.19)
 """
 import numpy as np
 import pandas as pd
@@ -9,6 +10,20 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
                          num_h_slice = 1, num_v_slice = 1,
                          byte_offset = 132,
                          LANE_DISTRIBUTE_OPT = False):
+    """
+    This function reconstruct DSC output data to compare with Q820 DSC data output.
+    DSI packet header, ECC, CRC16 and blank null packet payload are appended to DSC coded data.
+    CRC16 2 byte is set as 0x99, which is not identical with Q820 output, but ALL other bytes are 100% identical.
+
+    :param file_name: DSC file name
+    :param pic_width: picture width of original picture
+    :param pic_height: picture height of original picture
+    :param num_h_slice: 1, NO horizontal sliced case
+    :param num_v_slice: 1, NO vertical sliced case
+    :param byte_offset: 132, 4Byte magic number and 128Byte PPS data
+    :param LANE_DISTRIBUTE_OPT: if True, ALL bytes will be distributed 4 lanes alignment
+    :return: None, but CSV file contains DECIMAL DSC_DSI packet data will be generated
+    """
 
     slice_width = pic_width // num_h_slice
     slice_height = pic_height // num_v_slice

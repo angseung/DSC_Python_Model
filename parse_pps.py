@@ -1,3 +1,7 @@
+"""
+This script can be used to parse pps information from dsc file header.
+"""
+
 import os
 import numpy as np
 
