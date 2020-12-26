@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from math import ceil
 
 rc_range_parameters_table = [
@@ -111,6 +112,31 @@ initial_offset_table = [6144, 6144, 6144, 2048, 2048, 2048]
 flatness_min_qp_table = [3, 7, 11, 3, 7, 11]
 flatness_max_qp_table = [12, 16, 20, 12, 16, 20]
 rc_quant_incr_limit_table = [11, 15, 19, 11, 15, 19]
+
+def compute_maxoffset(pixelsPerGroup, groupsPerLine, initial_xmit_delay, bits_per_pixel, first_line_bpg_offset, second_line_bpg_offset, slice_bpg_offset, nfl_bpg_offset, nsl_bpg_offset, groupcount, native_420):
+    #grpcnt = int(ceil(float(initial_xmit_delay) / pixelsPerGroup))
+    grpcnt = groupcount
+    grpcnt_id = int(ceil(float(initial_xmit_delay) / pixelsPerGroup))
+
+    if grpcnt <= grpcnt_id:
+        offset = int(ceil(grpcnt * pixelsPerGroup * bits_per_pixel))
+    else:
+        offset = int(ceil(grpcnt_id * pixelsPerGroup * bits_per_pixel)) - (((grpcnt - grpcnt_id) * slice_bpg_offset) >> 11)
+
+    if grpcnt <= groupsPerLine:
+        offset += grpcnt * first_line_bpg_offset
+    else:
+        offset += groupsPerLine * first_line_bpg_offset - (((grpcnt - groupsPerLine) * nfl_bpg_offset) >> 11)
+
+    if native_420:
+        if grpcnt <= grpcnt_id:
+            offset -= (grpcnt * nsl_bpg_offset) >> 11
+        elif grpcnt <= 2 * groupsPerLine:
+            offset += (grpcnt - groupsPerLine) * second_line_bpg_offset - ((groupsPerLine * nsl_bpg_offset) >> 11)
+        else:
+            offset += (grpcnt - groupsPerLine) * second_line_bpg_offset - (((grpcnt - groupsPerLine) * nsl_bpg_offset) >> 11)
+
+    return offset
 
 class initPps:
     def __init__(self):
@@ -507,29 +533,3 @@ class initPps:
         self.somewhat_flat_qp_delta = 4
         self.flatness_det_thresh = 2
         self.muxWordSize = muxWordSize ## 2020.07.27 added
-
-
-def compute_maxoffset(pixelsPerGroup, groupsPerLine, initial_xmit_delay, bits_per_pixel, first_line_bpg_offset, second_line_bpg_offset, slice_bpg_offset, nfl_bpg_offset, nsl_bpg_offset, groupcount, native_420):
-    #grpcnt = int(ceil(float(initial_xmit_delay) / pixelsPerGroup))
-    grpcnt = groupcount
-    grpcnt_id = int(ceil(float(initial_xmit_delay) / pixelsPerGroup))
-
-    if grpcnt <= grpcnt_id:
-        offset = int(ceil(grpcnt * pixelsPerGroup * bits_per_pixel))
-    else:
-        offset = int(ceil(grpcnt_id * pixelsPerGroup * bits_per_pixel)) - (((grpcnt - grpcnt_id) * slice_bpg_offset) >> 11)
-
-    if grpcnt <= groupsPerLine:
-        offset += grpcnt * first_line_bpg_offset
-    else:
-        offset += groupsPerLine * first_line_bpg_offset - (((grpcnt - groupsPerLine) * nfl_bpg_offset) >> 11)
-
-    if native_420:
-        if grpcnt <= grpcnt_id:
-            offset -= (grpcnt * nsl_bpg_offset) >> 11
-        elif grpcnt <= 2 * groupsPerLine:
-            offset += (grpcnt - groupsPerLine) * second_line_bpg_offset - ((groupsPerLine * nsl_bpg_offset) >> 11)
-        else:
-            offset += (grpcnt - groupsPerLine) * second_line_bpg_offset - (((grpcnt - groupsPerLine) * nsl_bpg_offset) >> 11)
-
-    return offset
