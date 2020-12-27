@@ -11,3 +11,4 @@ file_name = "NEW_image_half.dsc"
 PRINT_PPS_OPT = 1
 PPS = initPps()
 PPS = parse_pps(file_name, 0)
+PPS.cal_params_dec()
