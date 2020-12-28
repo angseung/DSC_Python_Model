@@ -98,6 +98,7 @@ def reconstruct_dsc_data(file_name = None, pic_width = 1920, pic_height = 1080,
         DF.to_csv("DSC_%s.csv" %file_name[: -4])
 
 file_name = "NEW_image_full.dsc"
+# file_name = "RED_image_2_1.dsc"
 
 reconstruct_dsc_data(file_name = file_name,
                      pic_width = 1920, pic_height = 1080,
